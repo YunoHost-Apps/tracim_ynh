@@ -7,6 +7,7 @@
 #=================================================
 
 source _common.sh
+source ynh_supervisor
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -17,7 +18,7 @@ old_domain=$YNH_APP_OLD_DOMAIN
 old_path=$YNH_APP_OLD_PATH
 
 new_domain=$YNH_APP_NEW_DOMAIN
-new_path=$YNH_APP_NEW_PATH
+new_path="/"
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -30,9 +31,14 @@ ynh_script_progression --message="Loading installation settings..."
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 
 # Add settings here as needed by your application
-#db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-#db_user=$db_name
-#db_pwd=$(ynh_app_setting_get --app=$app --key=db_pwd)
+language=$(ynh_app_setting_get --app=$app --key=language)
+admin=$(ynh_app_setting_get --app=$app --key=admin)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+db_user=$db_name
+db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
+api_key=$(ynh_app_setting_get --app=$app --key=api_key)
+session_secret=$(ynh_app_setting_get --app=$app --key=session_secret)
+website_title=$(ynh_app_setting_get --app=$app --key=website_title)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
@@ -75,7 +81,7 @@ fi
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
+ynh_supervisor_action --service_name=$app --action="stop" --log_path="/var/log/supervisor/supervisord.log" #--line_match="line to match"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
@@ -109,8 +115,20 @@ fi
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
-# ...
+# UPDATE A CONFIG FILE
 #=================================================
+ynh_script_progression --message="Updating a configuration file..."
+
+domain=$new_domain
+path_url=$new_path
+
+ynh_add_config --template="../conf/development.ini.sample" --destination="$final_path/backend/development.ini"
+chmod 400 "$final_path/backend/development.ini"
+chown $app:$app "$final_path/backend/development.ini"
+
+ynh_add_config --template="../conf/configEnv.json.sample" --destination="$final_path/frontend/configEnv.json"
+chmod 400 "$final_path/frontend/configEnv.json"
+chown $app:$app "$final_path/frontend/configEnv.json"
 
 #=================================================
 # GENERIC FINALISATION
@@ -120,7 +138,8 @@ fi
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/$app/$app.log"
+ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log" #--line_match="line to match"
 
 #=================================================
 # RELOAD NGINX

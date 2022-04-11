@@ -54,9 +54,22 @@ ynh_script_progression --message="Stopping and removing the systemd service..."
 
 # Remove the dedicated systemd config
 ynh_remove_supervisor_config --service="$app"
-#ynh_remove_uwsgi_service --service="$app"
-#ynh_remove_uwsgi_service --service="$app-webdav"
-#ynh_remove_uwsgi_service --service="$app-caldav"
+
+ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-web.ini"
+ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-web.ini"
+ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-webdav.ini"
+ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-webdav.ini"
+ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-caldav.ini"
+ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-caldav.ini"
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/$app/$app.log"
+
+#=================================================
+# REMOVE LOGROTATE CONFIGURATION
+#=================================================
+ynh_script_progression --message="Removing logrotate configuration..."
+
+# Remove the app-specific logrotate config
+ynh_remove_logrotate
 
 #=================================================
 # REMOVE THE POSTGRESQL DATABASE
@@ -103,39 +116,14 @@ ynh_remove_nodejs
 ynh_remove_app_dependencies
 
 #=================================================
-# CLOSE A PORT
-#=================================================
-
-if yunohost firewall list | grep -q "\- $port$"
-then
-	ynh_script_progression --message="Closing port $port..."
-	ynh_exec_warn_less yunohost firewall disallow TCP $port
-fi
-
-#=================================================
 # SPECIFIC REMOVE
 #=================================================
 # REMOVE VARIOUS FILES
 #=================================================
 ynh_script_progression --message="Removing various files..."
 
-# Remove a cron file
-ynh_secure_remove --file="/etc/cron.d/$app"
-
-# Remove a directory securely
-ynh_secure_remove --file="/etc/$app"
-
 # Remove the log files
 ynh_secure_remove --file="/var/log/$app"
-
-ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-web.ini"
-ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-web.ini"
-
-ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-webdav.ini"
-ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-webdav.ini"
-
-ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-caldav.ini"
-ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-caldav.ini"
 
 #=================================================
 # GENERIC FINALIZATION
