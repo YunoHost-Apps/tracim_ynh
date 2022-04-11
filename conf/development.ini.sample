@@ -348,7 +348,7 @@ api.key = %(basic_setup.api_key)s
 ## Auth type list (internal or ldap), can be a list of item separated by ','
 ## and ordered by priority
 ## auth_type 'remote' is not allowed there, set remote_auth_header.
-auth_types = ldap
+auth_types = internal,ldap
 # If auth_type is ldap, uncomment following ldap_* parameters
 ## LDAP server address
 ldap_url = ldap://127.0.0.1:389
@@ -477,8 +477,8 @@ website.usage_conditions =
 # webdav url for client
 # url can be extended like localhost/webdav by setting webdav.root_path parameter
 # in this case, you have to create your own proxy behind this url.
-; webdav.base_url = http://localhost:3030
-; webdav.ui.enabled = True
+webdav.base_url = %(website.base_url)s
+webdav.ui.enabled = True
 
 ### Notifications ###
 # Comma-separated events listed in this setting are not displayed in recent activities and notifications to the user.
@@ -538,7 +538,7 @@ website.usage_conditions =
 
 email.notification.smtp.server = localhost
 email.notification.smtp.port = 25
-; email.notification.smtp.user =
+; email.notification.smtp.user =__APP__@__DOMAIN__
 ; email.notification.smtp.password =
 # configuration example:
 # email.notification.smtp.server = your_smtp_server
@@ -688,7 +688,7 @@ webdav.listen = localhost:3030
 ## default root of webdav service
 ## this params need to be modified in case of using webdav with proxy
 ## if you want for example that path /webdav give access to webdav
-; webdav.root_path = /
+webdav.root_path = /webdav
 
 ### Technical Webdav configuration ###
 ## wsgidav block size in bytes
