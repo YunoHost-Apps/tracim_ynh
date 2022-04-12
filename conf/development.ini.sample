@@ -521,7 +521,7 @@ webdav.ui.enabled = True
 ####
 
 ## send some notification when user make specific action in Tracim
-; email.notification.activated = False
+; email.notification.activated = True
 ## you can enable or disable if invited user to space will be notified
 ## on this space by default.
 ## NB: new users will not being notified until they login to Tracim a first time
@@ -534,7 +534,7 @@ webdav.ui.enabled = True
 
 email.notification.smtp.server = localhost
 email.notification.smtp.port = 25
-; email.notification.smtp.user =__APP__@__DOMAIN__
+; email.notification.smtp.user =
 ; email.notification.smtp.password =
 # configuration example:
 # email.notification.smtp.server = your_smtp_server
@@ -564,12 +564,12 @@ email.notification.smtp.port = 25
 
 
 ## valid variable is 'user_id' for 'from' header:
-; email.notification.from.email =
+email.notification.from.email = __APP__@__DOMAIN__
 # example of recommanded pattern (for 'from' header):
 # email.notification.from.email = noreply+{user_id}@domainname.tld
 
 ## valid variable is 'content_id' for 'reply_to' header:
-; email.notification.reply_to.email =
+email.notification.reply_to.email = __APP__@__DOMAIN__
 # tagging reply_to header of email with content_id is needed for working
 # email_reply feature
 # example of recommanded pattern (for 'reply_to' header):
@@ -578,7 +578,7 @@ email.notification.smtp.port = 25
 # email.notification.reply_to.email = reply+cid{content_id}@domainname.tld
 
 ## valid variable is 'content_id' for 'references' header:
-; email.notification.references.email =
+email.notification.references.email = content_id
 # tagging reference header of email with content_id is nice to have
 # all modification to a same content in a same email client thread
 # Note: reference doesn't need to be an existing email account but should
