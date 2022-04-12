@@ -122,18 +122,11 @@ supervisorctl reread
 supervisorctl update
 
 #=================================================
-# RESTORE THE LOGROTATE CONFIGURATION
-#=================================================
-ynh_script_progression --message="Restoring the logrotate configuration..."
-
-ynh_restore_file --origin_path="/etc/logrotate.d/$app"
-
-#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add uwsgi --log="/var/log/uwsgi/$app/$app.log"
+yunohost service add uwsgi --log="/var/log/uwsgi/app/$app.log"
 yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 
 #=================================================
@@ -142,8 +135,8 @@ yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/$app/$app.log"
-ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log" #--line_match="line to match"
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app.log" --line_match="spawned uWSGI"
+ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log"
 
 #=================================================
 # GENERIC FINALIZATION

@@ -61,15 +61,7 @@ ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-webdav.ini"
 ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-webdav.ini"
 ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-caldav.ini"
 ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-caldav.ini"
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/$app/$app.log"
-
-#=================================================
-# REMOVE LOGROTATE CONFIGURATION
-#=================================================
-ynh_script_progression --message="Removing logrotate configuration..."
-
-# Remove the app-specific logrotate config
-ynh_remove_logrotate
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app.log" --line_match="spawned uWSGI"
 
 #=================================================
 # REMOVE THE POSTGRESQL DATABASE
@@ -117,14 +109,6 @@ ynh_remove_app_dependencies
 
 #=================================================
 # SPECIFIC REMOVE
-#=================================================
-# REMOVE VARIOUS FILES
-#=================================================
-ynh_script_progression --message="Removing various files..."
-
-# Remove the log files
-ynh_secure_remove --file="/var/log/$app"
-
 #=================================================
 # GENERIC FINALIZATION
 #=================================================

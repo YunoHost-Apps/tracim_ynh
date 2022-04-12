@@ -82,7 +82,7 @@ fi
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..."
 
-ynh_supervisor_action --service_name=$app --action="stop" --log_path="/var/log/supervisor/supervisord.log" #--line_match="line to match"
+ynh_supervisor_action --service_name=$app --action="stop" --log_path="/var/log/supervisor/supervisord.log"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
@@ -139,8 +139,8 @@ chown $app:$app "$final_path/frontend/configEnv.json"
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/$app/$app.log"
-ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log" #--line_match="line to match"
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app.log" --line_match="spawned uWSGI"
+ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log"
 
 #=================================================
 # RELOAD NGINX
