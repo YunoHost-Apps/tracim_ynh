@@ -114,8 +114,20 @@ ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
 ynh_script_progression --message="Restoring the systemd configuration..."
 
 ynh_restore_file --origin_path="/etc/uwsgi/apps-available/$app-web.ini"
+chmod 400 "/etc/uwsgi/apps-available/$app-web.ini"
+chown $app:$app "/etc/uwsgi/apps-available/$app-web.ini"
+ln -sf /etc/uwsgi/apps-available/$app-web.ini /etc/uwsgi/apps-enabled/$app-web.ini
+
 ynh_restore_file --origin_path="/etc/uwsgi/apps-available/$app-webdav.ini"
+chmod 400 "/etc/uwsgi/apps-available/$app-webdav.ini"
+chown $app:$app "/etc/uwsgi/apps-available/$app-webdav.ini"
+ln -sf /etc/uwsgi/apps-available/$app-webdav.ini /etc/uwsgi/apps-enabled/$app-webdav.ini
+
 ynh_restore_file --origin_path="/etc/uwsgi/apps-available/$app-caldav.ini"
+chmod 400 "/etc/uwsgi/apps-available/$app-caldav.ini"
+chown $app:$app "/etc/uwsgi/apps-available/$app-caldav.ini"
+ln -sf /etc/uwsgi/apps-available/$app-caldav.ini /etc/uwsgi/apps-enabled/$app-caldav.ini
+
 ynh_restore_file --origin_path="/etc/supervisor/conf.d/$app.conf"
 
 supervisorctl reread
