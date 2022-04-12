@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="postgresql ghostscript git imagemagick iproute2 libfile-mimeinfo-perl libimage-exiftool-perl webp libmagic1 locales poppler-utils python3 python3-pip uwsgi uwsgi-plugin-python3 supervisor"
+pkg_dependencies="postgresql ghostscript git imagemagick iproute2 libfile-mimeinfo-perl libimage-exiftool-perl webp libmagic1 locales poppler-utils python3 python3-pip uwsgi uwsgi-plugin-python3 supervisor redis-server"
 
 preview_pkg_dependencies="ffmpeg xvfb inkscape libreoffice"
 

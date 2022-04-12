@@ -8,6 +8,7 @@
 
 source _common.sh
 source ynh_supervisor
+source ynh_redis
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -23,6 +24,7 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 datadir=$(ynh_app_setting_get --app=$app --key=datadir)
+redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 
 #=================================================
 # STANDARD REMOVE
@@ -31,20 +33,15 @@ datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 #=================================================
 
 # Remove the service from the list of services known by YunoHost (added from `yunohost service add`)
-if ynh_exec_warn_less yunohost service status $app >/dev/null
+if ynh_exec_warn_less yunohost service status uwsgi >/dev/null
 then
-	ynh_script_progression --message="Removing $app service integration..."
-	yunohost service remove $app
+	ynh_script_progression --message="Removing uwsgi service integration..."
+	yunohost service remove uwsgi
 fi
-if ynh_exec_warn_less yunohost service status $app-webdav >/dev/null
+if ynh_exec_warn_less yunohost service status supervisor >/dev/null
 then
-	ynh_script_progression --message="Removing $app-webdav service integration..."
-	yunohost service remove $app-webdav
-fi
-if ynh_exec_warn_less yunohost service status $app-caldav >/dev/null
-then
-	ynh_script_progression --message="Removing $app-caldav service integration..."
-	yunohost service remove $app-caldav
+	ynh_script_progression --message="Removing supervisor service integration..."
+	yunohost service remove supervisor
 fi
 
 #=================================================
@@ -61,7 +58,7 @@ ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-webdav.ini"
 ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-webdav.ini"
 ynh_secure_remove --file="/etc/uwsgi/apps-enabled/$app-caldav.ini"
 ynh_secure_remove --file="/etc/uwsgi/apps-available/$app-caldav.ini"
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app.log" --line_match="spawned uWSGI"
+ynh_systemd_action --service_name="uwsgi" --action="restart"
 
 #=================================================
 # REMOVE THE POSTGRESQL DATABASE
@@ -104,11 +101,22 @@ ynh_remove_nginx_config
 ynh_script_progression --message="Removing dependencies..."
 
 # Remove metapackage and its dependencies
+ynh_redis_remove_db "$redis_db"
 ynh_remove_nodejs
 ynh_remove_app_dependencies
 
 #=================================================
 # SPECIFIC REMOVE
+#=================================================
+# REMOVE VARIOUS FILES
+#=================================================
+ynh_script_progression --message="Removing various files..."
+
+# Remove the log files
+ynh_secure_remove --file="/var/log/uwsgi/app/$app-web.log"
+ynh_secure_remove --file="/var/log/uwsgi/app/$app-webdav.log"
+ynh_secure_remove --file="/var/log/uwsgi/app/$app-caldav.log"
+
 #=================================================
 # GENERIC FINALIZATION
 #=================================================

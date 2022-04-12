@@ -8,6 +8,7 @@
 
 source _common.sh
 source ynh_supervisor
+source ynh_redis
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -146,6 +147,9 @@ chown -R $app:www-data "$datadir"
 #=================================================
 ynh_script_progression --message="Adding a configuration file..."
 
+redis_db=$(ynh_redis_get_free_db)
+ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
+
 ynh_add_config --template="../conf/development.ini.sample" --destination="$final_path/backend/development.ini"
 chmod 400 "$final_path/backend/development.ini"
 chown $app:$app "$final_path/backend/development.ini"
@@ -226,7 +230,7 @@ ln -sf /etc/uwsgi/apps-available/$app-caldav.ini /etc/uwsgi/apps-enabled/$app-ca
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add uwsgi --log="/var/log/uwsgi/app/$app.log"
+yunohost service add uwsgi --log="/var/log/uwsgi/app/$app-web.log"
 yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 
 #=================================================
@@ -235,7 +239,7 @@ yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app.log" --line_match="spawned uWSGI"
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
 ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log"
 
 #=================================================

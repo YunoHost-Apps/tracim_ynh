@@ -278,12 +278,12 @@ preview_cache_dir = %(basic_setup.preview_cache_dir)s
 
 ### pyramid_beaker parameters ###
 
-session.type = file
+session.type = ext:redis
 # needed for "file" storage config :
 ; session.data_dir = %(here)s/sessions_data
 session.data_dir = %(basic_setup.sessions_data_root_dir)s/sessions_data
 # needed for many session storage type, but not for file (leave as empty for file)
-session.url =
+session.url = redis://localhost:6379/__REDIS_DB__
 
 ## "Redis" storage config sample:
 # session.type = ext:redis

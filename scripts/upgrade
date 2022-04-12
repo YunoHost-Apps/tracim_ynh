@@ -8,6 +8,7 @@
 
 source _common.sh
 source ynh_supervisor
+source ynh_redis
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -29,6 +30,7 @@ datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 api_key=$(ynh_app_setting_get --app=$app --key=api_key)
 session_secret=$(ynh_app_setting_get --app=$app --key=session_secret)
 website_title=$(ynh_app_setting_get --app=$app --key=website_title)
+redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 
 #=================================================
 # CHECK VERSION
@@ -200,7 +202,7 @@ ln -sf /etc/uwsgi/apps-available/$app-caldav.ini /etc/uwsgi/apps-enabled/$app-ca
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add uwsgi --log="/var/log/uwsgi/app/$app.log"
+yunohost service add uwsgi --log="/var/log/uwsgi/app/$app-web.log"
 yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 
 #=================================================
@@ -209,7 +211,7 @@ yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app.log" --line_match="spawned uWSGI"
+ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
 ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log"
 
 #=================================================
