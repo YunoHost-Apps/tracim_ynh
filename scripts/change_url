@@ -36,6 +36,7 @@ admin=$(ynh_app_setting_get --app=$app --key=admin)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
+datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 api_key=$(ynh_app_setting_get --app=$app --key=api_key)
 session_secret=$(ynh_app_setting_get --app=$app --key=session_secret)
 website_title=$(ynh_app_setting_get --app=$app --key=website_title)
