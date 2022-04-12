@@ -63,9 +63,9 @@ basic_setup.session_secret = __SESSION_SECRET__
 ; debug = False
 
 
-### Language ###
-## default language used in backend if user do not set any language.
-# Available parameter: en, fr, pt, de, ar
+### Lang ###
+## default lang used in backend if user doesn't provided any lang.
+# Available parameter: en, fr, pt, de
 default_lang = __LANGUAGE__
 
 ### Apps ###
@@ -179,11 +179,6 @@ workspace.join.max_messages_history_count = -1
 # timeout for fetching URL preview (in sec).
 ; url_preview.fetch_timeout = 30
 
-# max content length parsed for fetching URL preview (in bytes), default to 1048576 (1 Mo)
-# note: setting to 0 will disallow the limitation, but is not recommanded for security and performance
-# reason.
-; url_preview.max_content_length = 1048576
-
 ####
 # LIMITATION
 ####
@@ -214,7 +209,7 @@ workspace.join.max_messages_history_count = -1
 # Empty by default. HTML is allowed.
 ; limitation.maximum_online_users_message =
 # For instance:
-# limitation.maximum_online_users_message = We suggest you contact your manager to upgrade your offer:<br /><b>Leslie Doe</b>, <a href="tel:+336123456789">+336123456789</a>, <a href="mailto:root@__DOMAIN__">root@__DOMAIN__</a>
+# limitation.maximum_online_users_message = We suggest you contact your manager to upgrade your offer:<br /><b>Leslie Doe</b>, <a href="tel:+336123456789">+336123456789</a>, <a href="mailto:leslie.doe@example.org">leslie.doe@example.org</a>
 
 ####
 # STORAGE
@@ -736,12 +731,12 @@ webdav.root_path = /webdav
 ##     param_name = value
 ## ```
 
-caldav.radicale.server.hosts = localhost:5232
+caldav.radicale.server.host = localhost:5232
 ## To make Tracim work, we need to disable auth and rights.
-caldav.radicale.auth.type = none
-caldav.radicale.rights.type = tracim_backend.radicale_plugins.allow_all_access_rights
+caldav.radicale.auth.type = None
+caldav.radicale.rights.type = None
 ## We do not need radicale web ui
-caldav.radicale.web.type = none
+caldav.radicale.web.type = None
 ## for Tracim we do use file storage.
 caldav.radicale.storage.type = multifilesystem
 ; caldav.radicale.storage.filesystem_folder = %(here)s/radicale_storage
@@ -751,13 +746,6 @@ caldav.radicale.headers.Access-Control-Allow-Origin = *
 caldav.radicale.headers.Access-Control-Allow-Methods =  GET, POST, OPTIONS, PROPFIND, PROPPATCH, REPORT, PUT, MOVE, DELETE, LOCK, UNLOCK
 caldav.radicale.headers.Access-Control-Allow-Headers =  User-Agent, Authorization, Content-type, Depth, If-match, If-None-Match, Lock-Token, Timeout, Destination, Overwrite, X-client, X-Requested-With, Prefer
 caldav.radicale.headers.Access-Control-Expose-Headers = Etag
-
-# in Tracim's Frontend, when creating a new event, the description (note) of the event will be pre-filled with the content
-# of the file given in the following parameter. Leave empty if you don't want any pre-filling.
-; caldav.pre_filled_event.description_file_path =
-
-## example:
-# caldav.pre_filled_event.description_file_path = %(here)s/tracim_backend/templates/pre-filled_agenda_event/test/description.txt
 
 ####
 # SEARCH (ElasticSearch)
@@ -844,7 +832,7 @@ caldav.radicale.headers.Access-Control-Expose-Headers = Etag
 ## Translation service target languages that will be proposed in Tracim's interface
 # It is a comma-separated list of <ISO-639-1 language code>:<Language string to display> pairs.
 # The string can use any UTF-8 character.
-; translation_service.target_languages = en:English,fr:Français,pt:Português,de:Deutsch,ar:العربية
+; translation_service.target_languages = en:English,fr:Français,pt:Português,de:Deutsch
 # example:
 # translation_service.target_languages = fr:Français,ar:العربية,ja:日本語
 
@@ -918,7 +906,6 @@ pyramid.default_locale_name = en
 #   pyramid.includes =
 #       pyramid_debugtoolbar
 # ```
-# WARNING: pyramid_debugtoolbar won't work in Tracim's official docker image (multiple problems of multiprocess and reverse-proxy).
 
 
 [pipeline:webdav]
@@ -941,7 +928,7 @@ listen = %(webdav.listen)s
 
 [server:caldav]
 use = egg:waitress#main
-listen = %(caldav.radicale.server.hosts)s
+listen = %(caldav.radicale.server.host)s
 ######################
 # DATABASE MIGRATION #
 ######################
