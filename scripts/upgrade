@@ -110,7 +110,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
 
-ynh_install_app_dependencies $pkg_dependencies $build_pkg_dependencies
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies $build_pkg_dependencies
 ynh_install_nodejs --nodejs_version=$nodejs_version
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
@@ -143,26 +143,27 @@ pushd "$final_path/backend"
 	set +u;
 	source env/bin/activate
 	set -u;
-	pip install -r requirements-build.txt
-	pip install -r requirements.txt
-	pip install -r requirements-full-preview-generator.txt
-	pip install -r requirements-db-postgres.txt
-	pip install -e "."
+	ynh_exec_warn_less pip install -r requirements-build.txt
+	ynh_exec_warn_less ynh_exec_warn_less pip install -r requirements.txt
+	ynh_exec_warn_less pip install -r requirements-full-preview-generator.txt
+	ynh_exec_warn_less pip install -r requirements-db-postgres.txt
+	ynh_exec_warn_less pip install -e "."
 	mkdir sessions_data sessions_lock previews
+	ynh_exec_warn_less alembic -c development.ini upgrade head
 	set +u;
 	deactivate
 	set -u;
-	$ynh_npm install "i18next-conv@<8" -g
-	./update_i18n_json_file.sh || exit 1
+	ynh_exec_warn_less $ynh_npm install "i18next-conv@<8" -g
+	ynh_exec_warn_less ./update_i18n_json_file.sh || exit 1
 popd
 
 pushd "$final_path"
 	echo 'nodeLinker: node-modules' >> .yarnrc.yml
-	yarn install
-	./build_full_frontend.sh
+	ynh_exec_warn_less yarn install
+	ynh_exec_warn_less ./build_full_frontend.sh
 popd
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
