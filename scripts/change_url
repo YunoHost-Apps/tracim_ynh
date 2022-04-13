@@ -40,6 +40,7 @@ datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 api_key=$(ynh_app_setting_get --app=$app --key=api_key)
 session_secret=$(ynh_app_setting_get --app=$app --key=session_secret)
 website_title=$(ynh_app_setting_get --app=$app --key=website_title)
+redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
