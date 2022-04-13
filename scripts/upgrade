@@ -150,7 +150,6 @@ pushd "$final_path/backend"
 	ynh_exec_warn_less pip install -r requirements-full-preview-generator.txt
 	ynh_exec_warn_less pip install -r requirements-db-postgres.txt
 	ynh_exec_warn_less pip install -e "."
-	mkdir sessions_data sessions_lock previews
 	ynh_exec_warn_less alembic -c development.ini upgrade head
 	set +u;
 	deactivate
