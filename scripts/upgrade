@@ -159,7 +159,6 @@ pushd "$final_path/backend"
 popd
 
 pushd "$final_path"
-	echo 'nodeLinker: node-modules' >> .yarnrc.yml
 	ynh_exec_warn_less yarn install
 	ynh_exec_warn_less ./build_full_frontend.sh
 popd
