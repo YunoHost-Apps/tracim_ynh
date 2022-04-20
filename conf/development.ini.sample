@@ -344,10 +344,12 @@ api.key = %(basic_setup.api_key)s
 ## and ordered by priority
 ## auth_type 'remote' is not allowed there, set remote_auth_header.
 auth_types = internal
-;auth_types = internal,ldap
+auth_types = internal,ldap
 # If auth_type is ldap, uncomment following ldap_* parameters
 ## LDAP server address
 ldap_url = ldap://127.0.0.1:389
+## ldap_bind anonymous mode : if true bind as anonymous, password and dn will not been checked.
+ldap_bind_anonymous = True
 ## Bind dn to identify the search
 ldap_bind_dn =
 # example:
