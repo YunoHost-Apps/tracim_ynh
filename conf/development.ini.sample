@@ -343,7 +343,7 @@ api.key = %(basic_setup.api_key)s
 ## Auth type list (internal or ldap), can be a list of item separated by ','
 ## and ordered by priority
 ## auth_type 'remote' is not allowed there, set remote_auth_header.
-auth_types = internal
+;auth_types = internal
 auth_types = internal,ldap
 # If auth_type is ldap, uncomment following ldap_* parameters
 ## LDAP server address
