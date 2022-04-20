@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/tracim/tracim/archive/refs/tags/release_04.01.03.tar.gz
-SOURCE_SUM=317c427f35f85e2996499b466976b800cd158193f7261a44b0003198364c698b
+SOURCE_URL=https://codeload.github.com/yalh76/tracim/tar.gz/2d83f48e43e0ce029368202151cd98d6b8dc9c81
+SOURCE_SUM=9709dc0139b3d267a153e2cd1e9e3dc18836f5597bd6bc6a4c7060966e3ef86e
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
