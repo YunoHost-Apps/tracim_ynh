@@ -1,46 +1,36 @@
 {
-    "name": "Example app",
-    "id": "example",
+    "name": "Tracim",
+    "id": "tracim",
     "packaging_format": 1,
     "description": {
-        "en": "Explain in *a few (10~15) words* the purpose of the app or what it actually does (it is meant to give a rough idea to users browsing a catalog of 100+ apps)",
-        "fr": "Expliquez en *quelques* (10~15) mots l'utilité de l'app ou ce qu'elle fait (l'objectif est de donner une idée grossière pour des utilisateurs qui naviguent dans un catalogue de 100+ apps)"
+        "en": "Collaborative platform software intended for (not only technical) team collaboration."
     },
-    "version": "1.0~ynh1",
-    "url": "https://example.com",
+    "version": "4.2.0~ynh1",
+    "url": "https://www.tracim.fr",
     "upstream": {
-        "license": "free",
-        "website": "https://example.com",
-        "demo": "https://demo.example.com",
-        "admindoc": "https://yunohost.org/packaging_apps",
-        "userdoc": "https://yunohost.org/apps",
-        "code": "https://some.forge.com/example/example"
+        "license": "AGPL-3.0-or-later,LGPL-3.0-or-later,CC-BY-SA-2.5,MIT",
+        "website": "https://www.tracim.fr",
+        "demo": "https://www.algoo.fr/fr/tracim/demo",
+        "admindoc": "https://public-community.tracim.fr/ui/workspaces/143/contents",
+        "code": "https://github.com/tracim/tracim"
     },
-    "license": "free",
+    "license": "AGPL-3.0-or-later",
     "maintainer": {
-        "name": "John doe",
-        "email": "john.doe@example.com"
+        "name": "",
+        "email": ""
     },
     "requirements": {
         "yunohost": ">= 4.3.0"
     },
     "multi_instance": true,
     "services": [
-        "nginx",
-        "php7.3-fpm",
-        "mysql"
+        "nginx"
     ],
     "arguments": {
-        "install" : [
+        "install": [
             {
                 "name": "domain",
                 "type": "domain"
-            },
-            {
-                "name": "path",
-                "type": "path",
-                "example": "/example",
-                "default": "/example"
             },
             {
                 "name": "is_public",
@@ -54,7 +44,7 @@
                     "en": "Choose the application language",
                     "fr": "Choisissez la langue de l'application"
                 },
-                "choices": ["fr", "en"],
+                "choices": ["fr", "en", "pt", "de", "ar"],
                 "default": "fr"
             },
             {
@@ -63,11 +53,7 @@
             },
             {
                 "name": "password",
-                "type": "password",
-                "help": {
-                    "en": "Use the help field to add an information for the admin about this question.",
-                    "fr": "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
-                }
+                "type": "password"
             }
         ]
     }
