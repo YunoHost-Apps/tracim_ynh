@@ -79,13 +79,6 @@ fi
 #=================================================
 # STANDARD MODIFICATIONS
 #=================================================
-# STOP SYSTEMD SERVICE
-#=================================================
-ynh_script_progression --message="Stopping a systemd service..."
-
-ynh_supervisor_action --service_name=$app --action="stop" --log_path="/var/log/supervisor/supervisord.log"
-
-#=================================================
 # MODIFY URL IN NGINX CONF
 #=================================================
 ynh_script_progression --message="Updating NGINX web server configuration..."
@@ -141,7 +134,6 @@ ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
 ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
-ynh_supervisor_action --service_name="$app" --action="restart" --log_path="/var/log/supervisor/supervisord.log"
 
 #=================================================
 # RELOAD NGINX
