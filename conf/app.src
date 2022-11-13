@@ -1,5 +1,5 @@
-SOURCE_URL=https://api.github.com/repos/tracim/tracim/tarball/release_04.02.02
-SOURCE_SUM=0da81544a65e9678b2f26729b06f166c084c7756a799dc755d1d9e75b37b96cb
+SOURCE_URL=https://api.github.com/repos/tracim/tracim/tarball/release_04.04.02
+SOURCE_SUM=07f3714bb24242e7b3ca79a5d8458626f0eff253f009487a1d9dd0726f5273e6
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
