@@ -5,15 +5,15 @@ It shall NOT be edited by hand.
 
 # Tracim pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/tracim.svg)](https://dash.yunohost.org/appci/app/tracim) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/tracim.svg)](https://dash.yunohost.org/appci/app/tracim) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
 [![Installer Tracim avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Tracim rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Tracim rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 Tracim is a collaborative platform software intended for (not only technical) team collaboration. It is simple to use, offers a user-friendly interface and runs on every computer. It is very valuable for R&D teams, assocations, remote collaboration.
 
@@ -22,15 +22,15 @@ Tracim is a collaborative platform software intended for (not only technical) te
 
 **Démo :** https://www.algoo.fr/fr/tracim/demo
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Tracim](./doc/screenshots/feature_app_document.png)
+![Capture d’écran de Tracim](./doc/screenshots/feature_app_document.png)
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://www.tracim.fr>
-* Documentation officielle de l'admin : <https://public-community.tracim.fr/ui/workspaces/143/contents>
-* Dépôt de code officiel de l'app : <https://github.com/tracim/tracim>
+* Site officiel de l’app : <https://www.tracim.fr>
+* Documentation officielle de l’admin : <https://public-community.tracim.fr/ui/workspaces/143/contents>
+* Dépôt de code officiel de l’app : <https://github.com/tracim/tracim>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_tracim>
 * Signaler un bug : <https://github.com/YunoHost-Apps/tracim_ynh/issues>
 
@@ -46,4 +46,4 @@ ou
 sudo yunohost app upgrade tracim -u https://github.com/YunoHost-Apps/tracim_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
