@@ -1,7 +1,0 @@
-SOURCE_URL=https://api.github.com/repos/tracim/tracim/tarball/release_04.04.03
-SOURCE_SUM=e661be5481e262a5f3927ea9d62e1c7e15f63ba87fc12d038a301b936ab22a52
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
-SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=
-SOURCE_EXTRACT=true
