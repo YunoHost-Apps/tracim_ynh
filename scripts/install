@@ -90,9 +90,9 @@ pushd "$install_dir/backend"
 	ynh_exec_warn_less tracimcli db init
 	ynh_exec_warn_less tracimcli user create -e $admin_mail -u $admin --lang $language -p $password --profile administrators
 	ynh_exec_warn_less tracimcli user delete -l admin@admin.admin
-	set +u;
+	#set +u;
 	deactivate
-	set -u;
+	#set -u;
 	ynh_exec_warn_less $ynh_npm install "i18next-conv@<8" -g
 	ynh_exec_warn_less ./update_i18n_json_file.sh || exit 1
 popd
