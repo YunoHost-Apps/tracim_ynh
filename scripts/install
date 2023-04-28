@@ -78,9 +78,7 @@ cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/di
 pushd "$install_dir/backend"
 	ynh_use_nodejs
 	python3 -m venv env
-	set +u;
 	source env/bin/activate
-	set -u;
 	ynh_exec_warn_less pip install -r requirements-build.txt
 	ynh_exec_warn_less pip install -r requirements.txt
 	ynh_exec_warn_less pip install -r requirements-full-preview-generator.txt
