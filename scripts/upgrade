@@ -80,9 +80,9 @@ pushd "$install_dir/backend"
 	ynh_exec_warn_less pip install -r requirements-db-postgres.txt
 	ynh_exec_warn_less pip install -e "."
 	ynh_exec_warn_less alembic -c development.ini upgrade head
-	set +u;
+	#set +u;
 	deactivate
-	set -u;
+	#set -u;
 	ynh_exec_warn_less $ynh_npm install "i18next-conv@<8" -g
 	ynh_exec_warn_less ./update_i18n_json_file.sh || exit 1
 popd
