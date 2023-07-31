@@ -41,8 +41,8 @@ basic_setup.listen = localhost:6543
 ## storage path/connection
 basic_setup.sqlalchemy_url = postgresql://__DB_USER__:__DB_PWD__@localhost:5432/__DB_NAME__?client_encoding=utf8
 basic_setup.uploaded_files_storage_type = local
-basic_setup.uploaded_files_storage_path = __DATADIR__/depot
-basic_setup.caldav_storage_dir = __DATADIR__/radicale_storage
+basic_setup.uploaded_files_storage_path = __DATA_DIR__/depot
+basic_setup.caldav_storage_dir = __DATA_DIR__/radicale_storage
 basic_setup.preview_cache_dir = %(here)s/previews
 basic_setup.sessions_data_root_dir = %(here)s
 

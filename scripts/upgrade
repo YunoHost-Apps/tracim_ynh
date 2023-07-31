@@ -7,74 +7,13 @@
 #=================================================
 
 source _common.sh
-source ynh_supervisor
-source ynh_redis
 source /usr/share/yunohost/helpers
-
-#=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..."
-
-app=$YNH_APP_INSTANCE_NAME
-
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-language=$(ynh_app_setting_get --app=$app --key=language)
-admin=$(ynh_app_setting_get --app=$app --key=admin)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
-db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
-api_key=$(ynh_app_setting_get --app=$app --key=api_key)
-session_secret=$(ynh_app_setting_get --app=$app --key=session_secret)
-website_title=$(ynh_app_setting_get --app=$app --key=website_title)
-redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 
 #=================================================
 # CHECK VERSION
 #=================================================
-ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..."
-
-# Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
-	ynh_clean_check_starting
-	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..."
-
-# Cleaning legacy permissions
-if ynh_legacy_permissions_exists; then
-	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
-fi
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..."
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -85,12 +24,11 @@ then
 	ynh_script_progression --message="Upgrading source files..."
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --keep="backend/development.ini frontend/configEnv.json"
+	ynh_setup_source --dest_dir="$install_dir" --keep="backend/development.ini frontend/configEnv.json"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -105,9 +43,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
 
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies $build_pkg_dependencies
 ynh_install_nodejs --nodejs_version=$nodejs_version
-ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
 # SPECIFIC UPGRADE
@@ -116,52 +52,45 @@ ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ st
 #=================================================
 ynh_script_progression --message="Updating a configuration file..."
 
-ynh_add_config --template="../conf/development.ini.sample" --destination="$final_path/backend/development.ini"
-chmod 400 "$final_path/backend/development.ini"
-chown $app:$app "$final_path/backend/development.ini"
+ynh_add_config --template="../conf/development.ini.sample" --destination="$install_dir/backend/development.ini"
+chmod 400 "$install_dir/backend/development.ini"
+chown $app:$app "$install_dir/backend/development.ini"
 
-ynh_add_config --template="../conf/configEnv.json.sample" --destination="$final_path/frontend/configEnv.json"
-chmod 400 "$final_path/frontend/configEnv.json"
-chown $app:$app "$final_path/frontend/configEnv.json"
+ynh_add_config --template="../conf/configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
+chmod 400 "$install_dir/frontend/configEnv.json"
+chown $app:$app "$install_dir/frontend/configEnv.json"
 
 #=================================================
 # BUILD APP
 #=================================================
 ynh_script_progression --message="Building app..."
 
-cp -r $final_path/frontend/dist/assets/branding.sample $final_path/frontend/dist/assets/branding
+cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/dist/assets/branding
 
-pushd "$final_path/backend"
+pushd "$install_dir/backend"
 	ynh_use_nodejs
-	ynh_secure_remove --file="$final_path/backend/env"
+	ynh_secure_remove --file="$install_dir/backend/env"
 	python3 -m venv env
-	set +u;
 	source env/bin/activate
-	set -u;
 	ynh_exec_warn_less pip install -r requirements-build.txt
 	ynh_exec_warn_less ynh_exec_warn_less pip install -r requirements.txt
 	ynh_exec_warn_less pip install -r requirements-full-preview-generator.txt
 	ynh_exec_warn_less pip install -r requirements-db-postgres.txt
 	ynh_exec_warn_less pip install -e "."
 	ynh_exec_warn_less alembic -c development.ini upgrade head
-	set +u;
 	deactivate
-	set -u;
 	ynh_exec_warn_less $ynh_npm install "i18next-conv@<8" -g
 	ynh_exec_warn_less ./update_i18n_json_file.sh || exit 1
 popd
 
-pushd "$final_path"
+pushd "$install_dir"
 	ynh_exec_warn_less yarn install
 	ynh_exec_warn_less ./build_full_frontend.sh
 popd
 
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-ynh_exec_warn_less ynh_package_autoremove
-
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # SETUP SYSTEMD
@@ -203,13 +132,6 @@ ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
 ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..."
-
-ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
