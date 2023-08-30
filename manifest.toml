@@ -16,7 +16,7 @@ admindoc = "https://public-community.tracim.fr/ui/workspaces/143/contents"
 code = "https://github.com/tracim/tracim"
 
 [integration]
-yunohost = ">= 11.1.18"
+yunohost = ">= 11.2"
 architectures = "all"
 multi_instance = true
 ldap = false
@@ -27,9 +27,7 @@ ram.runtime = "50M"
 
 [install]
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by Yunohost's core
     type = "domain"
-    full_domain = true
 
     [install.init_main_permission]
     type = "group"
