@@ -32,7 +32,7 @@ Tracim is a collaborative platform software intended for (not only technical) te
 * Official app website: <https://www.tracim.fr>
 * Official admin documentation: <https://public-community.tracim.fr/ui/workspaces/143/contents>
 * Upstream app code repository: <https://github.com/tracim/tracim>
-* YunoHost documentation for this app: <https://yunohost.org/app_tracim>
+* YunoHost Store: <https://apps.yunohost.org/app/tracim>
 * Report a bug: <https://github.com/YunoHost-Apps/tracim_ynh/issues>
 
 ## Developer info
