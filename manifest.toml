@@ -5,7 +5,7 @@ name = "Tracim"
 description.en = "Collaborative platform intended for team collaboration"
 description.fr = "Plateforme collaborative destiné à la collaboration en équipe"
 
-version = "4.6.1~ynh1"
+version = "4.6.1~ynh2"
 
 maintainers = []
 
