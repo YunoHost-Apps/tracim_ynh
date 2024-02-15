@@ -54,6 +54,7 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.06.01.tar.gz"
         sha256 = "aad538f9de14fa66b78dc062b1e873bf8d7998dc293de026cc01f38624133932"
+        autoupdate.strategy = "latest_github_release"
 
     [resources.ports]
 
