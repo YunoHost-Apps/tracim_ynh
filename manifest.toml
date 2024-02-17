@@ -5,7 +5,7 @@ name = "Tracim"
 description.en = "Collaborative platform intended for team collaboration"
 description.fr = "Plateforme collaborative destiné à la collaboration en équipe"
 
-version = "4.6.1~ynh2"
+version = "04.08.00~ynh1"
 
 maintainers = []
 
@@ -52,8 +52,8 @@ ram.runtime = "50M"
 
 [resources]
         [resources.sources.main]
-        url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.06.01.tar.gz"
-        sha256 = "aad538f9de14fa66b78dc062b1e873bf8d7998dc293de026cc01f38624133932"
+        url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.08.00.tar.gz"
+        sha256 = "846b077706ca8787fed477b22ac36caddb096e9fe6debc12b7d5ea6c7e66009a"
         autoupdate.strategy = "latest_github_release"
         autoupdate.version_regex = "^release_(.*)$"
 
