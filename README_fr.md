@@ -19,7 +19,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 Tracim est un logiciel de plateforme collaborative destiné à la collaboration (pas seulement technique) en équipe. Il est simple à utiliser, offre une interface conviviale et fonctionne sur tous les ordinateurs. C’est très précieux pour les équipes R&D, les associations, la collaboration à distance.
 
 
-**Version incluse :** 4.6.1~ynh2
+**Version incluse :** 04.08.00~ynh1
 
 **Démo :** https://www.algoo.fr/fr/tracim/demo
 
