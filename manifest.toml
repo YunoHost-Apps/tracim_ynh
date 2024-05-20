@@ -17,7 +17,7 @@ admindoc = "https://public-community.tracim.fr/ui/workspaces/143/contents"
 code = "https://github.com/tracim/tracim"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 11.2.12"
 architectures = ["amd64"]
 multi_instance = true
 
