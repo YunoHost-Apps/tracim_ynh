@@ -60,11 +60,11 @@ ynh_script_progression --message="Adding a configuration file..."
 redis_db=$(ynh_redis_get_free_db)
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 
-ynh_add_config --template="../conf/development.ini.sample" --destination="$install_dir/backend/development.ini"
+ynh_add_config --template="development.ini.sample" --destination="$install_dir/backend/development.ini"
 chmod 400 "$install_dir/backend/development.ini"
 chown $app:$app "$install_dir/backend/development.ini"
 
-ynh_add_config --template="../conf/configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
+ynh_add_config --template="configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
 chmod 400 "$install_dir/frontend/configEnv.json"
 chown $app:$app "$install_dir/frontend/configEnv.json"
 
