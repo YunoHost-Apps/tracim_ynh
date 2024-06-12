@@ -19,7 +19,7 @@ No se debe editar a mano.
 Tracim is a collaborative platform software intended for (not only technical) team collaboration. It is simple to use, offers a user-friendly interface and runs on every computer. It is very valuable for R&D teams, assocations, remote collaboration.
 
 
-**Versión actual:** 04.09.01~ynh1
+**Versión actual:** 04.09.02~ynh1
 
 **Demo:** <https://www.algoo.fr/fr/tracim/demo>
 
