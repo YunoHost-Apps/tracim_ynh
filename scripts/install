@@ -96,7 +96,8 @@ popd
 pushd $install_dir
     ynh_use_nodejs
     echo 'nodeLinker: node-modules' >> .yarnrc.yml
-    ynh_exec_warn_less env $ynh_node_load_PATH yarn install
+    ynh_exec_warn_less env $ynh_node_load_PATH corepack enable && COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack prepare pnpm@latest --activate
+    ynh_exec_warn_less env $ynh_node_load_PATH pnpm install --production
     ynh_exec_warn_less env $ynh_node_load_PATH ./build_full_frontend.sh
 popd
 
@@ -112,17 +113,17 @@ ynh_script_progression --message="Configuring a systemd service..."
 # Create a dedicated systemd config
 ynh_add_supervisor_config --service="$app" --template="supervisord.conf"
 
-ynh_add_config --template="../conf/web.ini" --destination="/etc/uwsgi/apps-available/$app-web.ini"
+ynh_add_config --template="web.ini" --destination="/etc/uwsgi/apps-available/$app-web.ini"
 chmod 400 "/etc/uwsgi/apps-available/$app-web.ini"
 chown $app:$app "/etc/uwsgi/apps-available/$app-web.ini"
 ln -sf /etc/uwsgi/apps-available/$app-web.ini /etc/uwsgi/apps-enabled/$app-web.ini
 
-ynh_add_config --template="../conf/webdav.ini" --destination="/etc/uwsgi/apps-available/$app-webdav.ini"
+ynh_add_config --template="webdav.ini" --destination="/etc/uwsgi/apps-available/$app-webdav.ini"
 chmod 400 "/etc/uwsgi/apps-available/$app-webdav.ini"
 chown $app:$app "/etc/uwsgi/apps-available/$app-webdav.ini"
 ln -sf /etc/uwsgi/apps-available/$app-webdav.ini /etc/uwsgi/apps-enabled/$app-webdav.ini
 
-ynh_add_config --template="../conf/caldav.ini" --destination="/etc/uwsgi/apps-available/$app-caldav.ini"
+ynh_add_config --template="caldav.ini" --destination="/etc/uwsgi/apps-available/$app-caldav.ini"
 chmod 400 "/etc/uwsgi/apps-available/$app-caldav.ini"
 chown $app:$app "/etc/uwsgi/apps-available/$app-caldav.ini"
 ln -sf /etc/uwsgi/apps-available/$app-caldav.ini /etc/uwsgi/apps-enabled/$app-caldav.ini
