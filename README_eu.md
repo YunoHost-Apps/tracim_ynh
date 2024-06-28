@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # Tracim YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/tracim.svg)](https://dash.yunohost.org/appci/app/tracim) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
 
 [![Instalatu Tracim YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
@@ -19,7 +19,7 @@ EZ editatu eskuz.
 Tracim is a collaborative platform software intended for (not only technical) team collaboration. It is simple to use, offers a user-friendly interface and runs on every computer. It is very valuable for R&D teams, assocations, remote collaboration.
 
 
-**Paketatutako bertsioa:** 04.09.01~ynh1
+**Paketatutako bertsioa:** 04.10.00~ynh1
 
 **Demoa:** <https://www.algoo.fr/fr/tracim/demo>
 
