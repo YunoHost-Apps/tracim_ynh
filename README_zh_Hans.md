@@ -5,7 +5,7 @@
 
 # YunoHost 上的 Tracim
 
-[![集成程度](https://dash.yunohost.org/integration/tracim.svg)](https://dash.yunohost.org/appci/app/tracim) ![工作状态](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
 
 [![使用 YunoHost 安装 Tracim](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
