@@ -10,6 +10,10 @@ nodejs_version=16
 # PERSONAL HELPERS
 #=================================================
 
+_corepack_enable() {
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack enable --install-directory="$install_dir/bin"
+}
+
 #=================================================
 # EXPERIMENTAL HELPERS
 #=================================================
