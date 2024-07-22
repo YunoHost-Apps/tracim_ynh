@@ -60,7 +60,7 @@ cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/di
 pushd "$install_dir/backend"
 	ynh_use_nodejs
 	ynh_secure_remove --file="$install_dir/backend/env"
-	python3 -m venv env
+	python3 -m venv venv
 	source env/bin/activate
 	ynh_exec_warn_less pip install -r requirements-build.txt
 	ynh_exec_warn_less ynh_exec_warn_less pip install -r requirements.txt
