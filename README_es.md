@@ -37,7 +37,7 @@ Tracim is a collaborative platform software intended for (not only technical) te
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/tracim_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/tracim_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
