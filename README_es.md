@@ -19,7 +19,7 @@ No se debe editar a mano.
 Tracim is a collaborative platform software intended for (not only technical) team collaboration. It is simple to use, offers a user-friendly interface and runs on every computer. It is very valuable for R&D teams, assocations, remote collaboration.
 
 
-**Versión actual:** 04.09.01~ynh1
+**Versión actual:** 04.11.01~ynh1
 
 **Demo:** <https://www.algoo.fr/fr/tracim/demo>
 
@@ -37,7 +37,7 @@ Tracim is a collaborative platform software intended for (not only technical) te
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/tracim_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/tracim_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 

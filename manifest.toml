@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "tracim"
@@ -5,7 +7,7 @@ name = "Tracim"
 description.en = "Collaborative platform intended for team collaboration"
 description.fr = "Plateforme collaborative destiné à la collaboration en équipe"
 
-version = "04.09.01~ynh1"
+version = "04.11.01~ynh1"
 
 maintainers = []
 
@@ -17,7 +19,7 @@ admindoc = "https://public-community.tracim.fr/ui/workspaces/143/contents"
 code = "https://github.com/tracim/tracim"
 
 [integration]
-yunohost = ">= 11.2.12"
+yunohost = ">= 11.2.30"
 architectures = ["amd64"]
 multi_instance = true
 
@@ -52,8 +54,8 @@ ram.runtime = "50M"
 
 [resources]
         [resources.sources.main]
-        url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.09.01.tar.gz"
-        sha256 = "8f87b4c1fbf0b9969d04c5f96d56c6fae4c265e3b6bbac264c398c19a812ea0f"
+        url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.11.01.tar.gz"
+        sha256 = "9c7550d72d47902a04348e302df700c065a44b81f49d8de1d36ddc7cf70ae7e9"
         autoupdate.strategy = "latest_github_release"
         autoupdate.version_regex = "^release_(.*)$"
 
@@ -70,11 +72,35 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "ffmpeg, xvfb, inkscape, libreoffice, postgresql, ghostscript, git, imagemagick, iproute2, libfile-mimeinfo-perl, libimage-exiftool-perl, webp, libmagic1, locales, poppler-utils, python3, python3-pip, uwsgi, uwsgi-plugin-python3, supervisor, build-essential, libjpeg-dev, libmagickwand-dev, libpq-dev, python3-dev, python3-venv, redis-server"
-
-    extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    extras.yarn.packages = "yarn"
+    packages = [
+        "ffmpeg",
+        "xvfb",
+        "inkscape",
+        "libreoffice",
+        "postgresql",
+        "ghostscript",
+        "git",
+        "imagemagick",
+        "iproute2",
+        "libfile-mimeinfo-perl",
+        "libimage-exiftool-perl",
+        "webp",
+        "libmagic1",
+        "locales",
+        "poppler-utils",
+        "python3",
+        "python3-pip",
+        "uwsgi",
+        "uwsgi-plugin-python3",
+        "supervisor",
+        "build-essential",
+        "libjpeg-dev",
+        "libmagickwand-dev",
+        "libpq-dev",
+        "python3-dev",
+        "python3-venv",
+        "redis-server",
+    ]
 
     [resources.database]
     type = "postgresql"
