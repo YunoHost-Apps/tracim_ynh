@@ -19,7 +19,7 @@ Ini TIDAK boleh diedit dengan tangan.
 Tracim is a collaborative platform software intended for (not only technical) team collaboration. It is simple to use, offers a user-friendly interface and runs on every computer. It is very valuable for R&D teams, assocations, remote collaboration.
 
 
-**Versi terkirim:** 04.09.01~ynh1
+**Versi terkirim:** 04.11.01~ynh1
 
 **Demo:** <https://www.algoo.fr/fr/tracim/demo>
 
@@ -31,7 +31,7 @@ Tracim is a collaborative platform software intended for (not only technical) te
 
 - Website aplikasi resmi: <https://www.tracim.fr>
 - Dokumentasi admin resmi: <https://public-community.tracim.fr/ui/workspaces/143/contents>
-- Repositori kode aplikasi hulu: <https://github.com/tracim/tracim>
+- Depot kode aplikasi hulu: <https://github.com/tracim/tracim>
 - Gudang YunoHost: <https://apps.yunohost.org/app/tracim>
 - Laporkan bug: <https://github.com/YunoHost-Apps/tracim_ynh/issues>
 
