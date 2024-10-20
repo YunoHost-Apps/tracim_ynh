@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -14,7 +8,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Upgrading source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir" --keep="backend/development.ini frontend/configEnv.json"
 
 chmod -R o-rwx "$install_dir"
@@ -25,7 +18,6 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression --message="Upgrading NGINX web server configuration..."
 
-# Create a dedicated NGINX config
 ynh_add_nginx_config
 
 #=================================================
@@ -35,8 +27,6 @@ ynh_script_progression --message="Upgrading dependencies..."
 
 ynh_install_nodejs --nodejs_version=$nodejs_version
 
-#=================================================
-# SPECIFIC UPGRADE
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
@@ -106,8 +96,6 @@ chown $app:$app "/etc/uwsgi/apps-available/$app-caldav.ini"
 ln -sf /etc/uwsgi/apps-available/$app-caldav.ini /etc/uwsgi/apps-enabled/$app-caldav.ini
 
 #=================================================
-# GENERIC FINALIZATION
-#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
@@ -120,7 +108,6 @@ yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
 #=================================================
 ynh_script_progression --message="Starting a systemd service..."
 
-# Start a systemd service
 ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
 
 #=================================================
