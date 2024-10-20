@@ -1,53 +1,44 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC STARTING
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# STANDARD MODIFICATIONS
-#=================================================
 # MODIFY URL IN NGINX CONF
 #=================================================
-ynh_script_progression --message="Updating NGINX web server configuration..."
+ynh_script_progression "Updating NGINX web server configuration..."
 
-ynh_change_url_nginx_config
+ynh_config_change_url_nginx
 
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..."
-#REMOVEME? 
+ynh_script_progression "Updating configuration..."
+#REMOVEME?
+
 domain=$new_domain
 path=$new_path
 
-ynh_add_config --template="../conf/development.ini.sample" --destination="$install_dir/backend/development.ini"
+ynh_config_add --template="development.ini.sample" --destination="$install_dir/backend/development.ini"
 chmod 400 "$install_dir/backend/development.ini"
 chown $app:$app "$install_dir/backend/development.ini"
 
-ynh_add_config --template="../conf/configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
-chmod 400 "$install_dir/frontend/configEnv.json"
-chown $app:$app "$install_dir/frontend/configEnv.json"
+ynh_config_add --template="configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/frontend/configEnv.json"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/frontend/configEnv.json"
 
-#=================================================
-# GENERIC FINALISATION
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..."
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
+ynh_systemctl --service="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --wait_until="spawned uWSGI"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Change of URL completed for $app"
+ynh_script_progression "Change of URL completed for $app"

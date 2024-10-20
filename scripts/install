@@ -14,9 +14,19 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 api_key=$(ynh_string_random --length=8)
+<<<<<<< Updated upstream
 session_secret=$(ynh_string_random --length=8)
 website_title="YunoHost Tracim"
 admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
+=======
+ynh_app_setting_set --key="api_key" --value="$api_key"
+
+session_secret=$(ynh_string_random --length=8)
+ynh_app_setting_set --key="session_secret" --value="$session_secret"
+
+website_title="YunoHost Tracim"
+ynh_app_setting_set --key="website_title" --value="$website_title"
+>>>>>>> Stashed changes
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
@@ -29,18 +39,23 @@ ynh_app_setting_set --app=$app --key=website_title --value=$website_title
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
+<<<<<<< Updated upstream
 ynh_script_progression --message="Installing dependencies..."
+=======
+ynh_script_progression "Installing NodeJS..."
+>>>>>>> Stashed changes
 
-ynh_install_nodejs --nodejs_version=$nodejs_version
+ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..."
+ynh_script_progression "Setting up source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
+<<<<<<< Updated upstream
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 
@@ -52,12 +67,17 @@ ynh_script_progression --message="Configuring NGINX web server..."
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
+=======
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
+>>>>>>> Stashed changes
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..."
+ynh_script_progression "Adding $app's configuration..."
 
 redis_db=$(ynh_redis_get_free_db)
+<<<<<<< Updated upstream
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 
 ynh_add_config --template="../conf/development.ini.sample" --destination="$install_dir/backend/development.ini"
@@ -67,14 +87,26 @@ chown $app:$app "$install_dir/backend/development.ini"
 ynh_add_config --template="../conf/configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
 chmod 400 "$install_dir/frontend/configEnv.json"
 chown $app:$app "$install_dir/frontend/configEnv.json"
+=======
+ynh_app_setting_set --key=redis_db --value="$redis_db"
+
+ynh_config_add --template="development.ini.sample" --destination="$install_dir/sources/backend/development.ini"
+chmod 400 "$install_dir/sources/backend/development.ini"
+chown "$app:$app" "$install_dir/sources/backend/development.ini"
+
+ynh_config_add --template="configEnv.json.sample" --destination="$install_dir/sources/frontend/configEnv.json"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/sources/frontend/configEnv.json"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown "$app:$app" "$install_dir/sources/frontend/configEnv.json"
+>>>>>>> Stashed changes
 
 #=================================================
 # BUILD APP
 #=================================================
-ynh_script_progression --message="Building app..."
+ynh_script_progression "Building app..."
 
 cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/dist/assets/branding
 
+<<<<<<< Updated upstream
 pushd "$install_dir/backend"
 	ynh_use_nodejs
 	python3 -m venv env
@@ -103,9 +135,43 @@ chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 
+=======
+python3 -m venv "$install_dir/venv"
+pushd "$install_dir/sources/backend"
+    ynh_hide_warnings "$install_dir/venv/bin/pip" install -r requirements-build.txt
+    ynh_hide_warnings "$install_dir/venv/bin/pip" install -r requirements.txt
+    ynh_hide_warnings "$install_dir/venv/bin/pip" install -r requirements-full-preview-generator.txt
+    ynh_hide_warnings "$install_dir/venv/bin/pip" install -r requirements-db-postgres.txt
+    ynh_hide_warnings "$install_dir/venv/bin/pip" install -e "."
+popd
+
+_corepack_enable
+export PATH="$install_dir/bin:$PATH"
+pushd "$install_dir/sources"
+    ynh_hide_warnings npm install "i18next-conv@<8" -g
+    ynh_hide_warnings ./update_i18n_json_file.sh || exit 1
+    echo 'nodeLinker: node-modules' >> .yarnrc.yml
+    ynh_hide_warnings yarn install
+    ynh_hide_warnings ./build_full_frontend.sh
+    ynh_safe_rm "$install_dir/www"
+popd
+cp -R "$install_dir/sources/frontend/dist" "$install_dir/www"
+
+pushd "$install_dir"
+    mkdir sessions_data sessions_lock previews
+    ynh_hide_warnings tracimcli db init
+    ynh_hide_warnings tracimcli user create -e "$admin_mail" -u "$admin" --lang "$language" -p "$password" --profile administrators
+    ynh_hide_warnings tracimcli user delete -l admin@admin.admin
+popd
+
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
+>>>>>>> Stashed changes
 #=================================================
 # SETUP SYSTEMD
 #=================================================
+<<<<<<< Updated upstream
 ynh_script_progression --message="Configuring a systemd service..."
 
 # Create a dedicated systemd config
@@ -143,9 +209,42 @@ ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
 ynh_systemd_action --service_name="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --line_match="spawned uWSGI"
+=======
+ynh_script_progression "Adding system configurations related to $app..."
+
+# Create a dedicated NGINX config
+ynh_config_add_nginx
+
+# Create a dedicated systemd config
+ynh_add_supervisor_config  --template="supervisord.conf"
+yunohost service add uwsgi --log="/var/log/uwsgi/app/$app-web.log"
+yunohost service add supervisor --log="/var/log/supervisor/supervisord.log"
+
+ynh_config_add --template="web.ini" --destination="/etc/uwsgi/apps-available/$app-web.ini"
+chmod 400 "/etc/uwsgi/apps-available/$app-web.ini"
+chown "$app:$app" "/etc/uwsgi/apps-available/$app-web.ini"
+ln -sf "/etc/uwsgi/apps-available/$app-web.ini" "/etc/uwsgi/apps-enabled/$app-web.ini"
+
+ynh_config_add --template="webdav.ini" --destination="/etc/uwsgi/apps-available/$app-webdav.ini"
+chmod 400 "/etc/uwsgi/apps-available/$app-webdav.ini"
+chown "$app:$app" "/etc/uwsgi/apps-available/$app-webdav.ini"
+ln -sf "/etc/uwsgi/apps-available/$app-webdav.ini" "/etc/uwsgi/apps-enabled/$app-webdav.ini"
+
+ynh_config_add --template="caldav.ini" --destination="/etc/uwsgi/apps-available/$app-caldav.ini"
+chmod 400 "/etc/uwsgi/apps-available/$app-caldav.ini"
+chown "$app:$app" "/etc/uwsgi/apps-available/$app-caldav.ini"
+ln -sf "/etc/uwsgi/apps-available/$app-caldav.ini" "/etc/uwsgi/apps-enabled/$app-caldav.ini"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Starting $app's systemd service..."
+
+ynh_systemctl --service="uwsgi" --action="restart" --log_path="/var/log/uwsgi/app/$app-web.log" --wait_until="spawned uWSGI"
+>>>>>>> Stashed changes
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed"
+ynh_script_progression "Installation of $app completed"
