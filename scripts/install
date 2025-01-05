@@ -70,7 +70,7 @@ popd
 
 ynh_use_nodejs
 _corepack_enable
-export PATH="$install_dir/bin:$PATH"
+export PATH="$install_dir/venv/bin:$PATH"
 pushd "$install_dir/sources"
     ynh_exec_warn_less "$ynh_npm" install "i18next-conv@<8" -g
     ynh_exec_warn_less ./update_i18n_json_file.sh || exit 1
