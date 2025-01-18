@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Tracim untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/tracim)](https://ci-apps.yunohost.org/ci/apps/tracim/)
+![Status kerja](https://apps.yunohost.org/badge/state/tracim)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/tracim)
 
 [![Pasang Tracim dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 

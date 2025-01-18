@@ -5,7 +5,9 @@
 
 # Tracim для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/tracim)](https://ci-apps.yunohost.org/ci/apps/tracim/)
+![Состояние работы](https://apps.yunohost.org/badge/state/tracim)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/tracim)
 
 [![Установите Tracim с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
