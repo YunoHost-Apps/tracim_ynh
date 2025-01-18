@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # Tracim pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/tracim)](https://ci-apps.yunohost.org/ci/apps/tracim/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/tracim)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/tracim)
 
 [![Installer Tracim avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
