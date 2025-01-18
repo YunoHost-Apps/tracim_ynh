@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Tracim para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/tracim)](https://ci-apps.yunohost.org/ci/apps/tracim/)
+![Estado funcional](https://apps.yunohost.org/badge/state/tracim)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/tracim)
 
 [![Instalar Tracim con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
@@ -37,7 +39,7 @@ Tracim is a collaborative platform software intended for (not only technical) te
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/tracim_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/tracim_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 

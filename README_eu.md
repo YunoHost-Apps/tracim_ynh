@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # Tracim YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/tracim)](https://ci-apps.yunohost.org/ci/apps/tracim/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/tracim)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/tracim)
 
 [![Instalatu Tracim YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
