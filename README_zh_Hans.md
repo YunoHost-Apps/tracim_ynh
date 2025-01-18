@@ -5,7 +5,9 @@
 
 # YunoHost 上的 Tracim
 
-[![集成程度](https://dash.yunohost.org/integration/tracim.svg)](https://ci-apps.yunohost.org/ci/apps/tracim/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/tracim.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/tracim.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/tracim)](https://ci-apps.yunohost.org/ci/apps/tracim/)
+![工作状态](https://apps.yunohost.org/badge/state/tracim)
+![维护状态](https://apps.yunohost.org/badge/maintained/tracim)
 
 [![使用 YunoHost 安装 Tracim](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tracim)
 
@@ -19,7 +21,7 @@
 Tracim is a collaborative platform software intended for (not only technical) team collaboration. It is simple to use, offers a user-friendly interface and runs on every computer. It is very valuable for R&D teams, assocations, remote collaboration.
 
 
-**分发版本：** 04.09.01~ynh1
+**分发版本：** 04.12.00~ynh1
 
 **演示：** <https://www.algoo.fr/fr/tracim/demo>
 
