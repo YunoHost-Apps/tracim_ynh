@@ -54,23 +54,11 @@ ynh_remove_nginx_config
 #=================================================
 # REMOVE DEPENDENCIES
 #=================================================
-#REMOVEME? ynh_script_progression --message="Removing dependencies..."
+ynh_script_progression --message="Removing dependencies..."
 
 # Remove metapackage and its dependencies
 ynh_redis_remove_db "$redis_db"
 ynh_remove_nodejs
-
-#=================================================
-# SPECIFIC REMOVE
-#=================================================
-# REMOVE VARIOUS FILES
-#=================================================
-ynh_script_progression --message="Removing various files..."
-
-# Remove the log files
-ynh_secure_remove --file="/var/log/uwsgi/app/$app-web.log"
-ynh_secure_remove --file="/var/log/uwsgi/app/$app-webdav.log"
-ynh_secure_remove --file="/var/log/uwsgi/app/$app-caldav.log"
 
 #=================================================
 # END OF SCRIPT
