@@ -77,6 +77,7 @@ cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/di
 
 pushd "$install_dir/backend"
 	ynh_use_nodejs
+	env $ynh_node_load_PATH corepack enable
 	python3 -m venv env
 	source env/bin/activate
 	ynh_exec_warn_less pip install -r requirements-build.txt

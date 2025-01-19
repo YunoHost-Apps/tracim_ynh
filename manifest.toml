@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "tracim"
@@ -5,7 +7,7 @@ name = "Tracim"
 description.en = "Collaborative platform intended for team collaboration"
 description.fr = "Plateforme collaborative destiné à la collaboration en équipe"
 
-version = "04.09.01~ynh1"
+version = "04.12.00~ynh1"
 
 maintainers = []
 
@@ -51,13 +53,11 @@ ram.runtime = "50M"
     type = "password"
 
 [resources]
-        [resources.sources.main]
-        url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.09.01.tar.gz"
-        sha256 = "8f87b4c1fbf0b9969d04c5f96d56c6fae4c265e3b6bbac264c398c19a812ea0f"
-        autoupdate.strategy = "latest_github_release"
-        autoupdate.version_regex = "^release_(.*)$"
-
-    [resources.ports]
+    [resources.sources.main]
+    url = "https://github.com/tracim/tracim/archive/refs/tags/release_04.12.00.tar.gz"
+    sha256 = "302c8e5007fa9d1c1345b0457da235db77dd5932954adccb366de945dda0a970"
+    autoupdate.strategy = "latest_github_release"
+    autoupdate.version_regex = "^release_(.*)$"
 
     [resources.system_user]
 
@@ -69,12 +69,10 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
 
+    [resources.ports]
+
     [resources.apt]
     packages = "ffmpeg, xvfb, inkscape, libreoffice, postgresql, ghostscript, git, imagemagick, iproute2, libfile-mimeinfo-perl, libimage-exiftool-perl, webp, libmagic1, locales, poppler-utils, python3, python3-pip, uwsgi, uwsgi-plugin-python3, supervisor, build-essential, libjpeg-dev, libmagickwand-dev, libpq-dev, python3-dev, python3-venv, redis-server"
-
-    extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    extras.yarn.packages = "yarn"
 
     [resources.database]
     type = "postgresql"
