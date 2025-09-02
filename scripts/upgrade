@@ -33,7 +33,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
 
-ynh_install_nodejs --nodejs_version=$nodejs_version
+#REMOVEME? ynh_install_nodejs --#REMOVEME? nodejs_version=$nodejs_version
 
 #=================================================
 # SPECIFIC UPGRADE
@@ -58,7 +58,7 @@ ynh_script_progression --message="Building app..."
 cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/dist/assets/branding
 
 pushd "$install_dir/backend"
-	ynh_use_nodejs
+	#REMOVEME? ynh_use_nodejs
 	env $ynh_node_load_PATH corepack enable
 	ynh_secure_remove --file="$install_dir/backend/env"
 	python3 -m venv env

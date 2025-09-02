@@ -58,7 +58,7 @@ ynh_script_progression --message="Removing dependencies..."
 
 # Remove metapackage and its dependencies
 ynh_redis_remove_db "$redis_db"
-ynh_remove_nodejs
+#REMOVEME? ynh_remove_nodejs
 
 #=================================================
 # END OF SCRIPT
