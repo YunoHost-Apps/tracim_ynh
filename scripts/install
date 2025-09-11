@@ -31,7 +31,7 @@ ynh_app_setting_set --app=$app --key=website_title --value=$website_title
 #=================================================
 ynh_script_progression --message="Installing dependencies..."
 
-ynh_install_nodejs --nodejs_version=$nodejs_version
+#REMOVEME? ynh_install_nodejs --#REMOVEME? nodejs_version=$nodejs_version
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -76,7 +76,7 @@ ynh_script_progression --message="Building app..."
 cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/dist/assets/branding
 
 pushd "$install_dir/backend"
-	ynh_use_nodejs
+	#REMOVEME? ynh_use_nodejs
 	env $ynh_node_load_PATH corepack enable
 	python3 -m venv env
 	source env/bin/activate
