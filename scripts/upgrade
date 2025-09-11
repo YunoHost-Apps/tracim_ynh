@@ -15,8 +15,6 @@ ynh_script_progression "Upgrading source files..."
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir" --keep="backend/development.ini frontend/configEnv.json"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -31,12 +29,8 @@ ynh_config_add_nginx
 ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template="development.ini.sample" --destination="$install_dir/backend/development.ini"
-chmod 400 "$install_dir/backend/development.ini"
-chown $app:$app "$install_dir/backend/development.ini"
 
 ynh_config_add --template="configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/frontend/configEnv.json"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/frontend/configEnv.json"
 
 #=================================================
 # BUILD APP
@@ -46,8 +40,6 @@ ynh_script_progression "Building app..."
 cp -r $install_dir/frontend/dist/assets/branding.sample $install_dir/frontend/dist/assets/branding
 
 pushd "$install_dir/backend"
-	#REMOVEME?
-
 	env node_load_PATH corepack enable
 	ynh_safe_rm "$install_dir/backend/env"
 	python3 -m venv env
@@ -68,9 +60,6 @@ pushd "$install_dir"
 	ynh_hide_warnings ./build_full_frontend.sh
 popd
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # SETUP SYSTEMD
 #=================================================
