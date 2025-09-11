@@ -1,8 +1,6 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC START
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
@@ -25,13 +23,6 @@ admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 ynh_app_setting_set --app=$app --key=api_key --value=$api_key
 ynh_app_setting_set --app=$app --key=session_secret --value=$session_secret
 ynh_app_setting_set --app=$app --key=website_title --value=$website_title
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Installing dependencies..."
-
-#REMOVEME? ynh_install_nodejs --#REMOVEME? nodejs_version=$nodejs_version
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -127,8 +118,6 @@ chmod 400 "/etc/uwsgi/apps-available/$app-caldav.ini"
 chown $app:$app "/etc/uwsgi/apps-available/$app-caldav.ini"
 ln -sf /etc/uwsgi/apps-available/$app-caldav.ini /etc/uwsgi/apps-enabled/$app-caldav.ini
 
-#=================================================
-# GENERIC FINALIZATION
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================

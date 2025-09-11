@@ -1,16 +1,12 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC START
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# STANDARD REMOVE
 #=================================================
 # REMOVE SERVICE INTEGRATION IN YUNOHOST
 #=================================================
@@ -58,7 +54,6 @@ ynh_script_progression --message="Removing dependencies..."
 
 # Remove metapackage and its dependencies
 ynh_redis_remove_db "$redis_db"
-#REMOVEME? ynh_remove_nodejs
 
 #=================================================
 # END OF SCRIPT
