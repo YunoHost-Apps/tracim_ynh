@@ -49,8 +49,6 @@ redis_db=$(ynh_redis_get_free_db)
 ynh_app_setting_set --key=redis_db --value=$redis_db
 
 ynh_config_add --template="development.ini.sample" --destination="$install_dir/backend/development.ini"
-chmod 400 "$install_dir/backend/development.ini"
-chown $app:$app "$install_dir/backend/development.ini"
 
 ynh_config_add --template="configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
 

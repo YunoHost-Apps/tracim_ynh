@@ -20,8 +20,6 @@ ynh_config_change_url_nginx
 ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template="development.ini.sample" --destination="$install_dir/backend/development.ini"
-chmod 400 "$install_dir/backend/development.ini"
-chown $app:$app "$install_dir/backend/development.ini"
 
 ynh_config_add --template="configEnv.json.sample" --destination="$install_dir/frontend/configEnv.json"
 

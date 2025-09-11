@@ -28,12 +28,6 @@ ynh_backup "$data_dir"
 
 ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-#=================================================
-# SPECIFIC BACKUP
-#=================================================
-# BACKUP SYSTEMD
-#=================================================
-
 ynh_backup "/etc/uwsgi/apps-available/$app-web.ini"
 ynh_backup "/etc/uwsgi/apps-available/$app-webdav.ini"
 ynh_backup "/etc/uwsgi/apps-available/$app-caldav.ini"

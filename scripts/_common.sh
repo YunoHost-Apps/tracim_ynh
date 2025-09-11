@@ -14,7 +14,6 @@
 # Requires YunoHost version 2.7.11 or higher.
 ynh_add_supervisor_config () {
     # Declare an array to define the options of this helper.
-    #REMOVEME? local legacy_args=stv
     local -A args_array=( [s]=service= [t]=template= [v]=others_var=)
     local service
     local template
@@ -41,7 +40,6 @@ ynh_add_supervisor_config () {
 # Requires YunoHost version 2.7.2 or higher.
 ynh_remove_supervisor_config () {
     # Declare an array to define the options of this helper.
-    #REMOVEME? local legacy_args=s
     local -A args_array=( [s]=service= )
     local service
     # Manage arguments with getopts
@@ -71,7 +69,6 @@ ynh_remove_supervisor_config () {
 # Requires YunoHost version 3.5.0 or higher.
 ynh_supervisor_action() {
     # Declare an array to define the options of this helper.
-    #REMOVEME? local legacy_args=nalpte
     declare -Ar args_array=( [n]=service_name= [a]=action= [l]=line_match= [p]=log_path= [t]=timeout= [e]=length= )
     local service_name
     local action
