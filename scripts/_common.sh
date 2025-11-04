@@ -51,7 +51,7 @@ ynh_remove_supervisor_config () {
     local finalsupervisorconf="/etc/supervisor/conf.d/$service.conf"
     if [ -e "$finalsupervisorconf" ]
     then
-        ynh_supervisor_action --service=$service --action=stop
+        ynh_supervisor_action --service_name=$service --action=stop
         ynh_safe_rm "$finalsupervisorconf"
         supervisorctl reread
         supervisorctl update
