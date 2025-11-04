@@ -116,11 +116,11 @@ ynh_supervisor_action() {
     if ! supervisorctl $action $service_name
     then
         # Show syslog for this service
-        ynh_exec_err journalctl --quiet --no-hostname --no-pager --lines=$length --unit=$service_name
+        ynh_exec_and_print_stderr_only_if_error journalctl --quiet --no-hostname --no-pager --lines=$length --unit=$service_name
         # If a log is specified for this service, show also the content of this log
         if [ -e "$log_path" ]
         then
-            ynh_exec_err tail --lines=$length "$log_path"
+            ynh_exec_and_print_stderr_only_if_error tail --lines=$length "$log_path"
         fi
         ynh_clean_check_starting
         return 1
